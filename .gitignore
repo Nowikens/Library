@@ -1,0 +1,17 @@
+/books/migrations
+/accounts/migrations
+/index/migrations
+/library/migrations
+
+/books/__pycache__
+/accounts/__pycache__
+/index/__pycache__
+/library/__pycache__
+
+
+
+
+
+db.sqlite3
+.env
+

@@ -1,0 +1,14 @@
+{% extends 'index/base.html' %}
+
+{% block title %}Homepage{% endblock title %}
+
+{% block content %}
+<div class="container">
+	{% for book in books %}
+		{{ book.title }}<br>
+		<a href="{% url 'books:removeBook' book.id %}">Delete</a>
+		<a href="{% url 'books:editBook' book.id %}">Edit</a>
+		<br><br>
+	{% endfor %}
+</div>
+{% endblock content %}
