@@ -1,0 +1,14 @@
+{% extends 'index/base.html' %}
+
+{% block title %}Authors Index{% endblock title %}
+
+{% block content %}
+<div class="container">
+	{% for author in authors %}
+		{{ author.surname }}<br>
+		<a href="{% url 'books:removeAuthor' author.id %}">Delete</a>
+		<a href="{% url 'books:editAuthor' author.id %}">Edit</a>
+		<br><br>
+	{% endfor %}
+</div>
+{% endblock content %}

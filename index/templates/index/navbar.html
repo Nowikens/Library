@@ -9,10 +9,10 @@
 				<a class="nav-link" href="{% url 'index:homepage' %}">Homepage</a>
 				</li>
 				<li class="nav-item">
-				<a class="nav-link" href="#">Features</a>
+				<a class="nav-link" href="{% url 'index:authors' %}">Authors</a>
 				</li>
 				<li class="nav-item">
-				<a class="nav-link" href="#">Pricing</a>
+				<a class="nav-link" href="{% url 'index:publishers' %}">Publishers</a>
 				</li>
 				
 			<li class="nav-item dropdown">
@@ -21,8 +21,8 @@
 				</a>
 				
 				<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-					<a class="dropdown-item" href="#">Add Author</a>
-					<a class="dropdown-item" href="#">Add Publisher</a>
+					<a class="dropdown-item" href="{% url 'books:addAuthor' %}">Add Author</a>
+					<a class="dropdown-item" href="{% url 'books:addPublisher' %}">Add Publisher</a>
 					<a class="dropdown-item" href="{% url 'books:addBook' %}">Add Book</a>
 				</div>
 			</li>

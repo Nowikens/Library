@@ -1,0 +1,14 @@
+{% extends 'index/base.html' %}
+
+{% block title %}Publishers Index{% endblock title %}
+
+{% block content %}
+<div class="container">
+	{% for publisher in publishers %}
+		{{ publisher.name }}<br>
+		<a href="{% url 'books:removePublisher' publisher.id %}">Delete</a>
+		<a href="{% url 'books:editPublisher' publisher.id %}">Edit</a>
+		<br><br>
+	{% endfor %}
+</div>
+{% endblock content %}
