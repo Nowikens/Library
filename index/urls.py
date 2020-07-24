@@ -4,7 +4,8 @@ from . import views
 
 app_name = "index"
 urlpatterns = [
-    path('', views.homepage, name="homepage"),
-    path('publishers/', views.publishers_index, name="publishers"),
-    path('authors/', views.authors_index, name="authors"),
+    path('', views.HomepageView.as_view(), name="homepage"),
+    path('authors/', views.AuthorsView.as_view(), name="authors"),
+    path('publishers/', views.PublishersView.as_view(), name="publishers"),
+
 ]

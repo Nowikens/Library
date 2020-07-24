@@ -1,22 +1,28 @@
 from django.shortcuts import render
+from django.views.generic import ListView
 
 from books.models import Book, Author, Publisher
 # Create your views here.
 
 
-def homepage(request):
-    books = Book.objects.all()
-    context = {'books': books}
-    return render(request, 'index/homepage.html', context)
+class HomepageView(ListView):
+    template_name = 'index/homepage.html'
+    queryset = Book.objects.all().order_by('title')
+    context_object_name = 'books'
+
+
+
+
     
-    
-def authors_index(request):
-    authors = Author.objects.all()
-    context = {'authors': authors}
-    return render(request, 'index/authors_index.html', context)
-    
-    
-def publishers_index(request):
-    publishers = Publisher.objects.all()
-    context = {'publishers': publishers}
-    return render(request, 'index/publishers_index.html', context)
+class AuthorsView(ListView):
+    template_name = 'index/authors_index.html'
+    queryset = Author.objects.all()
+    context_object_name = 'authors'
+
+
+
+
+class PublishersView(ListView):
+    template_name = 'index/publishers_index.html'
+    queryset = Publisher.objects.all()
+    context_object_name = 'publishers'
