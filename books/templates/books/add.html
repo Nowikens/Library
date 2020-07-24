@@ -9,8 +9,8 @@
 	<div class="col-md-4 form-group">
 		<form method="POST">
 			{% csrf_token %}
-			{{ new_publisher | crispy }}
-			<input class="btn btn-info" type="submit" value="Add new publisher">
+			{{ form | crispy }}
+			<input class="btn btn-info" type="submit" value="Add">
 			<a class="btn btn-warning" href="{% url 'index:homepage' %}">Cancel</a>
 		</form>
 	</div>

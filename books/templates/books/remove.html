@@ -5,12 +5,13 @@
 
 {% block content %}
 <div class="container">
-
-	<div class="col-md-4 form-group">
+	<div class="col-md-8 form-group">
+	Are You sure, you want to remove <b>{{ object }}</b>?<br><br> 
+	THIS ACTION CAN'T BE REVERSED<br><br>
+	
 		<form method="POST">
 			{% csrf_token %}
-			{{ new_author | crispy }}
-			<input class="btn btn-info" type="submit" value="Add new author">
+			<input class="btn btn-danger" type="submit" value="DELETE">
 			<a class="btn btn-warning" href="{% url 'index:homepage' %}">Cancel</a>
 		</form>
 	</div>

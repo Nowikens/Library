@@ -1,6 +1,8 @@
-from django.shortcuts import render, redirect
-
+from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
+from django.urls import reverse
+from django.views.generic import CreateView, DeleteView, UpdateView
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .forms import AuthorForm, PublisherForm, BookForm
 from .models import Author, Publisher, Book
@@ -10,130 +12,78 @@ from .models import Author, Publisher, Book
 
 
 # ------------------------------------- BOOKS ------------------------------- # 
-def add_book(request):
-    new_book = BookForm()
+class CreateBook(LoginRequiredMixin, CreateView):
+    template_name = 'books/add.html'
+    form_class = BookForm
+
+    def get_success_url(self):
+        return reverse('books:addBook')
+
+class RemoveBook(DeleteView, LoginRequiredMixin):
+    template_name = 'books/remove.html'
+    model = Book
+        
+    def get_success_url(self):
+        return reverse('index:homepage')
     
-    if request.method == 'POST':
-        new_book = BookForm(request.POST)
-        if new_book.is_valid():
-            new_book.save()
-            
-            return redirect('index:homepage')
+class EditBook(LoginRequiredMixin, UpdateView):
+    template_name = 'books/edit.html'
+    model = Book
+    fields = ['title', 'author', 'publisher', 'year', 'status']
     
-    context = {
-        'new_book': new_book
-    }
-    return render(request, 'books/add_book.html', context)
-    
-def remove_book(request, pk):
-    book = Book.objects.get(id=pk)
-    
-    if request.method == "POST":
-        book.delete()
-        return redirect('index:homepage')
-    context = {'book': book}
-    return render(request, 'books/remove_book.html', context)
+    def get_success_url(self):
+        return reverse('index:homepage')
     
    
-def edit_book(request, pk):
-    book = Book.objects.get(id=pk)
-    form = BookForm(instance=book)
-    
-    if request.method == "POST":
-        form = BookForm(request.POST, instance=book)
-        if form.is_valid():
-            form.save()
-            return redirect('index:homepage')
-    
-    context = {'form': form}
-    return render(request, 'books/edit_book.html', context)
-    
-    
-    
 
 
 # ------------------------------ AUTHORS -------------------------------- #
-def add_author(request):
-    new_author = AuthorForm()
-    
-    if request.method == 'POST':
-        new_author = AuthorForm(request.POST)
-        if new_author.is_valid():
-            new_author.save()
-            
-            return redirect('index:homepage')
-    
-    context = {
-        'new_author': new_author
-    }
-    return render(request, 'books/add_author.html', context)
+class CreateAuthor(LoginRequiredMixin, CreateView):
+    template_name = 'books/add.html'
+    form_class = AuthorForm
 
-    
-def remove_author(request, pk):
-    author = Author.objects.get(id=pk)
-    
-    if request.method == "POST":
-        author.delete()
-        return redirect('index:homepage')
-    context = {'author': author}
-    return render(request, 'books/remove_author.html', context)
-    
-      
-def edit_author(request, pk):
-    author = Author.objects.get(id=pk)
-    form = AuthorForm(instance=author)
-    
-    if request.method == "POST":
-        form = AuthorForm(request.POST, instance=author)
-        if form.is_valid():
-            form.save()
-            return redirect('index:homepage')
-    
-    context = {'form': form}
-    return render(request, 'books/edit_author.html', context)
-    
+    def get_success_url(self):
+        return reverse('books:addAuthor')
 
+class RemoveAuthor(LoginRequiredMixin, DeleteView):
+    template_name = 'books/remove_author.html'
+    model = Author
+        
+    def get_success_url(self):
+        return reverse('index:homepage')
+    
+class EditAuthor(LoginRequiredMixin, UpdateView):
+    template_name = 'books/edit.html'
+    model = Author
+    fields = ['names', 'surname', 'nickname']
+    
+    def get_success_url(self):
+        return reverse('index:homepage')
 
 
 
 
 
 # ----------------------------------------- PUBLISHERS ----------------- #
-def add_publisher(request):
-    new_publisher = PublisherForm()
+class CreatePublisher(LoginRequiredMixin, CreateView):
+    template_name = 'books/add.html'
+    form_class = BookForm
+
+    def get_success_url(self):
+        return reverse('books:addBook')
+
+class RemovePublisher(LoginRequiredMixin, DeleteView):
+    template_name = 'books/remove.html'
+    model = Publisher
+        
+    def get_success_url(self):
+        return reverse('index:homepage')
     
-    if request.method == 'POST':
-        new_publisher = PublisherForm(request.POST)
-        if new_publisher.is_valid():
-            new_publisher.save()
-            
-            return redirect('index:homepage')
+class EditPublisher(LoginRequiredMixin, UpdateView):
+    template_name = 'books/edit.html'
+    model = Publisher
+    fields = ['name', 'adress']
     
-    context = {
-        'new_publisher': new_publisher
-    }
-    return render(request, 'books/add_publisher.html', context)
-    
-    
-def remove_publisher(request, pk):
-    publisher = Publisher.objects.get(id=pk)
-    
-    if request.method == "POST":
-        publisher.delete()
-        return redirect('index:homepage')
-    context = {'publisher': publisher}
-    return render(request, 'books/remove_publisher.html', context)
-    
-   
-def edit_publisher(request, pk):
-    publisher = Publisher.objects.get(id=pk)
-    form = PublisherForm(instance=publisher)
-    
-    if request.method == "POST":
-        form = PublisherForm(request.POST, instance=publisher)
-        if form.is_valid():
-            form.save()
-            return redirect('index:homepage')
-    
-    context = {'form': form}
-    return render(request, 'books/edit_publisher.html', context)
+    def get_success_url(self):
+        return reverse('index:homepage')
+      

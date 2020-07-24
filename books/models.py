@@ -5,7 +5,7 @@ import random
 class Author(models.Model):
     names    = models.CharField(null=True, blank=True, max_length=100)
     surname  = models.CharField(null=True, blank=True, max_length=100)
-    nickanme = models.CharField(null=True, blank=True, max_length=100)
+    nickname = models.CharField(null=True, blank=True, max_length=100)
     
     def __str__(self):
         return self.surname
