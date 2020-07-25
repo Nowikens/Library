@@ -12,8 +12,8 @@ class Author(models.Model):
 
 
 class Publisher(models.Model):
-    name   = models.CharField(null=False, max_length=100)
-    adress = models.CharField(null=False, max_length=100)
+    name   = models.CharField(null=False, blank=False, max_length=100)
+    adress = models.CharField(null=False, blank=False, max_length=100)
     
     def __str__(self):
         return self.name
@@ -26,10 +26,10 @@ class Book(models.Model):
         ('Borrowed', 'Borrowed')
     )
 
-    title      = models.CharField(null=False, max_length=100)  
+    title      = models.CharField(null=False, blank=False, max_length=100)  
     author     = models.ForeignKey(Author, on_delete=models.SET_NULL, null=True)
     publisher  = models.ForeignKey(Publisher, on_delete=models.SET_NULL, null=True)
-    year       = models.IntegerField(null=True)
+    year       = models.IntegerField(null=True, blank=True)
     status     = models.CharField(max_length=100, choices=STATUS)
     date_added = models.DateTimeField(auto_now_add=True)
     

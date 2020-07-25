@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 
 from django.views.generic import CreateView, UpdateView
 from django.contrib.auth.views import LoginView, LogoutView
-from django.contrib.auth import logout
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .forms import LibraryUserForm, CreateUserForm
 
@@ -17,11 +17,15 @@ class RegisterUser(CreateView):
     
     def get_success_url(self):
         return reverse('index:homepage')
-        
+       
+
+       
 class LoginUser(LoginView):
     template_name = 'accounts/login.html'
     
-class LogoutUser(LogoutView):
+    
+    
+class LogoutUser(LoginRequiredMixin, LogoutView):
     template_name = 'index/homepage.html'
 
 
