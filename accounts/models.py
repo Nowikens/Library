@@ -11,10 +11,11 @@ from django.contrib.auth.models import User
 class LibraryUser(models.Model):
     
     django_user = models.OneToOneField(User, on_delete=models.CASCADE)
-    name        = models.CharField(null=True, max_length=100)
-    surname     = models.CharField(null=True, max_length=100)
     books       = models.ForeignKey(Book, null=True, blank=True, on_delete=models.DO_NOTHING)
     books_limit = models.IntegerField(default=3)
     
+    
+    
+
     
 

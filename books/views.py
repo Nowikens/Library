@@ -19,12 +19,16 @@ class CreateBook(LoginRequiredMixin, CreateView):
     def get_success_url(self):
         return reverse('books:addBook')
 
+
+
 class RemoveBook(DeleteView, LoginRequiredMixin):
     template_name = 'books/remove.html'
     model = Book
         
     def get_success_url(self):
         return reverse('index:homepage')
+    
+    
     
 class EditBook(LoginRequiredMixin, UpdateView):
     template_name = 'books/edit.html'
@@ -45,12 +49,16 @@ class CreateAuthor(LoginRequiredMixin, CreateView):
     def get_success_url(self):
         return reverse('books:addAuthor')
 
+
+
 class RemoveAuthor(LoginRequiredMixin, DeleteView):
-    template_name = 'books/remove_author.html'
+    template_name = 'books/remove.html'
     model = Author
         
     def get_success_url(self):
         return reverse('index:homepage')
+    
+    
     
 class EditAuthor(LoginRequiredMixin, UpdateView):
     template_name = 'books/edit.html'
@@ -67,10 +75,12 @@ class EditAuthor(LoginRequiredMixin, UpdateView):
 # ----------------------------------------- PUBLISHERS ----------------- #
 class CreatePublisher(LoginRequiredMixin, CreateView):
     template_name = 'books/add.html'
-    form_class = BookForm
+    form_class = PublisherForm
 
     def get_success_url(self):
         return reverse('books:addBook')
+
+
 
 class RemovePublisher(LoginRequiredMixin, DeleteView):
     template_name = 'books/remove.html'
@@ -78,6 +88,8 @@ class RemovePublisher(LoginRequiredMixin, DeleteView):
         
     def get_success_url(self):
         return reverse('index:homepage')
+    
+    
     
 class EditPublisher(LoginRequiredMixin, UpdateView):
     template_name = 'books/edit.html'

@@ -1,0 +1,26 @@
+{% extends 'index/base.html' %}
+
+{% block title %}Homepage{% endblock title %}
+
+{% block content %}
+<div class="container">
+	{% for object in objects %}
+		{% if object.surname %}
+			{{ object.surname }}<br>
+			<a href="{% url 'books:removeAuthor' object.id %}">Delete</a>
+			<a href="{% url 'books:editAuthor' object.id %}">Edit</a>
+			<br><br>
+		{% elif object.title %}
+			{{ object.title }}<br>
+			<a href="{% url 'books:removeBook' object.id %}">Delete</a>
+			<a href="{% url 'books:editBook' object.id %}">Edit</a>
+			<br><br>
+		{% elif object.adress %}
+			{{ object.name }}<br>
+			<a href="{% url 'books:removePublisher' object.id %}">Delete</a>
+			<a href="{% url 'books:editPublisher' object.id %}">Edit</a>
+			<br><br>
+		{% endif %}
+	{% endfor %}
+</div>
+{% endblock content %}
