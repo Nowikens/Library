@@ -1,0 +1,18 @@
+{% extends 'index/base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Borrow{% endblock title %}
+
+{% block content %}
+<div class="container">
+	<div class="col-md-8 form-group">
+	Are You sure, you want to borrow <b>{{ object }}</b>?<br><br> 
+	
+		<form method="POST" action="{% url 'books:borrowBook' object.id %}">
+			{% csrf_token %}
+			<input class="btn btn-danger" type="submit" value="Borrow">
+			<a class="btn btn-warning" href="{% url 'index:homepage' %}">Cancel</a>
+		</form>
+	</div>
+</div>
+{% endblock content %}

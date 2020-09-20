@@ -23,6 +23,7 @@ class BookTesting(TestCase):
         )
         
         
+        
     def test_objects_number(self):
         """ Testing number of created objects. """
         authors     = Author.objects.all().count()
@@ -32,6 +33,7 @@ class BookTesting(TestCase):
         self.assertEqual(authors, 1)
         self.assertEqual(publishers, 1)
         self.assertEqual(books, 1)
+    
     
     
     def test_author_data(self):
@@ -47,6 +49,8 @@ class BookTesting(TestCase):
         # __str__ method
         self.assertEqual(str(self.author), self.author.surname)
 
+
+
     def test_publisher_data(self):
         """ Testing proper relations of set up publisher object. """
         self.publisher = Publisher.objects.get(name='Wydawnictwo literackie')
@@ -59,6 +63,7 @@ class BookTesting(TestCase):
         self.assertEqual(self.publisher.book_set.get(author=self.author).publisher, self.publisher)
         # __str__ method
         self.assertEqual(str(self.publisher), self.publisher.name)
+    
     
     
     def test_book_data(self):

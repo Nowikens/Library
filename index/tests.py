@@ -30,3 +30,5 @@ class IndexTests(SimpleTestCase):
         response = self.client.get(reverse('index:publishers'))
         
         self.assertRedirects(response, '/accounts/login/?next=/publishers/', status_code=302, target_status_code=200, fetch_redirect_response=True)
+        
+    

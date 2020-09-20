@@ -1,5 +1,5 @@
 from django.db import models
-import random
+from accounts.models import LibraryUser
 # Create your models here.
 
 class Author(models.Model):
@@ -32,6 +32,7 @@ class Book(models.Model):
     year       = models.IntegerField(null=True, blank=True)
     status     = models.CharField(max_length=100, choices=STATUS)
     date_added = models.DateTimeField(auto_now_add=True)
+    borrower   = models.ForeignKey(LibraryUser, null=True, blank=True, on_delete=models.DO_NOTHING)
     
     
     def __str__(self):

@@ -14,7 +14,13 @@
 			{{ object.title }}<br>
 			<a href="{% url 'books:removeBook' object.id %}">Delete</a>
 			<a href="{% url 'books:editBook' object.id %}">Edit</a>
+			{% if object.status == "Borrowed" %}
+			<b>Borrowed</b>
 			<br><br>
+			{% else %}
+			<a href="{% url 'books:borrowBook' object.id %}">Borrow</a>
+			<br><br>
+			{% endif %}
 		{% elif object.adress %}
 			{{ object.name }}<br>
 			<a href="{% url 'books:removePublisher' object.id %}">Delete</a>

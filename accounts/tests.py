@@ -12,9 +12,10 @@ from books.models import Book, Publisher, Author
 
 class Authentication_tests(TestCase):
 
+ 
     def setUp(self):
-        """ Setting up 1user, 1 publisher, 1 author and 1 book. """
-        new_user = User.objects.create(username="testuser")
+        """ Setting up 1 user, 1 publisher, 1 author and 1 book. """
+        new_user        = User.objects.create(username="testuser")
         new_author      = Author.objects.create(names = 'Stanisław', surname = 'Lem')
         new_publisher   = Publisher.objects.create(name = 'Wydawnictwo literackie', adress = 'Kraków')
         
@@ -37,7 +38,7 @@ class Authentication_tests(TestCase):
         
         
     def test_register_redirect(self):
-        """ Posting data to register new user, then testing reirect, and number of user objects in database. """
+        """ Posting data to register new user, then testing redirect, and number of user objects in database. """
         response = self.client.post(reverse('accounts:register'), 
             {
                 'username': 'testing',
@@ -48,3 +49,11 @@ class Authentication_tests(TestCase):
 
         self.assertRedirects(response, reverse('accounts:login'), status_code=302, target_status_code=200)
         self.assertEqual(User.objects.all().count(), 2)
+    
+    
+    def test_user_profile_annonymous_user(self):
+        """ Testing if unauthorized user is redirected to login page from user's profile."""
+        response = self.client.get(reverse('accounts:profile', kwargs={"pk": User.objects.get(username="testuser").id}))
+        
+        self.assertRedirects(response, f'/accounts/login/?next=/accounts/profile/{User.objects.get(username="testuser").id}', status_code=302, target_status_code=200, fetch_redirect_response=True)
+        

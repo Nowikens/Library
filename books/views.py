@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import HttpResponse
 from django.urls import reverse
-from django.views.generic import CreateView, DeleteView, UpdateView
+from django.views.generic import CreateView, DeleteView, UpdateView, DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .forms import AuthorForm, PublisherForm, BookForm
@@ -38,8 +38,23 @@ class EditBook(LoginRequiredMixin, UpdateView):
     def get_success_url(self):
         return reverse('index:homepage')
     
-   
-
+    
+    
+def borrow_book(request, pk):
+    
+    book = Book.objects.get(pk=pk)
+    
+    if request.method == "GET":    
+        context = {'object': book}
+        return render(request, 'books/borrow.html', context)
+    
+    elif request.method == "POST":
+        book.borrower = request.user.libraryuser
+        book.status = "Borrowed"
+        book.save()
+        
+        print(Book.objects.filter(borrower=request.user.libraryuser))
+        return redirect("index:homepage")
 
 # ------------------------------ AUTHORS -------------------------------- #
 class CreateAuthor(LoginRequiredMixin, CreateView):

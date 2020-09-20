@@ -1,0 +1,37 @@
+{% extends 'index/base.html' %}
+
+
+
+{% block content %}
+<div class="container p-5">
+	<p>Username: {{ profile.django_user.username }}</p>
+	<p>Book limit: {{ profile.books_limit }}</p>
+</div>
+<div class="container p-5">
+	<h3>Currently borrowed books</h3>
+	<table class="table table-sm">
+		<thead>
+			<tr>
+				<th scope="col">Title</th>
+				<th scope="col">Author</th>
+				<th scope="col">Publisher</th>
+				<th scope="col">Year</th>
+			</tr>
+		</thead>
+		
+		<tbody>
+
+				{% for book in books %}
+				<tr>
+					<th>{{ book.title }}</th>
+					<th>{{ book.author }}</th>
+					<th>{{ book.publisher }}</th>
+					<th>{{ book.year }}</th>
+				</tr>
+				{% endfor %}
+
+		</tbody>
+	</table>
+
+</div>
+{% endblock content %}
